@@ -1,76 +1,204 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/qLSYLPjq)
-**Week 4: MERN Stack Integration Project**
+# MERN Task Manager
 
-**Objective:**
+## Project Overview
+This is a full-stack task manager application built using the **MERN stack** (MongoDB, Express, React, Node.js). It allows users to create, view, update, and delete tasks. Each task includes a title, description, status, and due date. The project demonstrates the integration of a RESTful API with a React frontend, proper project structure, and state management.
 
-- Develop a full-stack web application using the MERN stack.
-- Apply backend and frontend integration skills.
-- Practice RESTful API development and consumption.
-- Implement CRUD operations and proper project structuring.
+---
 
-**Project Suggestion:** Build a "Task Manager" application where users can create, read, update, and delete tasks. Each task should include fields like title, description, status, and due date.
+## Features
+- **Create, Read, Update, and Delete (CRUD) Tasks**
+- RESTful API development using Express and MongoDB
+- Frontend implementation with React and Tailwind CSS
+- Dynamic state management using React hooks (useState, useEffect)
+- Fully responsive design
+- Backend deployed on **Render**
+- Frontend deployed on **Vercel**
 
-**Instructions:**
+---
 
-1. **Setup the Project:**
-   - Create a new project folder called `mern-task-manager`.
-   - Initialize both backend and frontend directories within the project.
-   - Install necessary dependencies such as Express, Mongoose, React, and Axios.
+## Technologies Used
+- **Backend:** Node.js, Express.js, MongoDB, Mongoose
+- **Frontend:** React.js, Axios, Tailwind CSS
+- **State Management:** React hooks
+- **Deployment:** Render (backend), Vercel (frontend)
 
-2. **Backend Development:**
-   - Set up an Express server and connect to MongoDB.
-   - Create a `Task` model with the following fields:
-     - `title` (String, required)
-     - `description` (String)
-     - `status` (String, default: 'pending', enum: ['pending', 'in progress', 'completed'])
-     - `dueDate` (Date)
-   - Implement RESTful API routes to:
-     - Create a new task
-     - Retrieve all tasks
-     - Update a task by ID
-     - Delete a task by ID
-   - Use environment variables for database connection.
+---
 
-3. **Frontend Development:**
-   - Set up a React project and configure routing.
-   - Create components:
-     - `TaskList` to display all tasks.
-     - `TaskForm` to add or update tasks.
-     - `TaskItem` to show an individual task.
-   - Implement forms to capture task details.
-   - Use Axios to make API requests to the backend.
-   - Implement UI styling using Tailwind CSS.
+## Installation
 
-4. **State Management:**
-   - Use React's `useState` and `useEffect` hooks to manage task state.
-   - Handle user interactions such as adding, updating, and deleting tasks.
+### Prerequisites
+1. Node.js installed on your system
+2. MongoDB Atlas or a local MongoDB instance running
 
-5. **Testing:**
-   - Run the backend server and test API endpoints using Postman.
-   - Run the React app and ensure API calls work correctly.
-   - Verify CRUD operations.
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd mern-task-manager
+   ```
 
-6. **Project Deployment:**
-   - Deploy the backend to a cloud platform such as Render.
-   - Deploy the frontend to Vercel.
-   - Ensure proper connection between frontend and backend.
+2. Set up the backend:
+   ```bash
+   cd backend
+   npm install
+   ```
+   - Create a `.env` file and add:
+     ```
+     MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/task-manager
+     PORT=5000
+     ```
+   - Start the backend server:
+     ```bash
+     npm start
+     ```
 
-7. **Documentation:**
-   - Write a `README.md` file including:
-     - Project overview
-     - Installation steps
-     - API endpoint documentation
-     - Features and usage guide
+3. Set up the frontend:
+   ```bash
+   cd ../frontend
+   npm install
+   npm run dev
+   ```
 
-8. **Submission:**
-   - Push your project to your GitHub repository.
+4. Open your browser and navigate to:
+   ```
+   http://localhost:5173
+   ```
 
-**Evaluation Criteria:**
+---
 
-- Proper project setup and folder structuring.
-- Working CRUD operations in both frontend and backend.
-- Correct use of React state and hooks.
-- Well-structured API endpoints with appropriate error handling.
-- A functional and user-friendly UI with Tailwind CSS.
-- Clear and concise documentation.
+## API Documentation
+The backend provides the following API endpoints:
+
+### **Create a Task**
+- **URL:** `/api/tasks`
+- **Method:** POST
+- **Body:** 
+  ```json
+  {
+    "title": "Task Title",
+    "description": "Task description",
+    "status": "pending",
+    "dueDate": "YYYY-MM-DD"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "_id": "12345",
+    "title": "Task Title",
+    "description": "Task description",
+    "status": "pending",
+    "dueDate": "YYYY-MM-DD",
+    "createdAt": "2025-03-08T00:00:00.000Z",
+    "updatedAt": "2025-03-08T00:00:00.000Z"
+  }
+  ```
+
+### **Retrieve All Tasks**
+- **URL:** `/api/tasks`
+- **Method:** GET
+- **Response:** An array of task objects.
+
+### **Update a Task**
+- **URL:** `/api/tasks/:id`
+- **Method:** PUT
+- **Body:** Include fields to update, e.g.:
+  ```json
+  {
+    "status": "completed"
+  }
+  ```
+- **Response:** The updated task.
+
+### **Delete a Task**
+- **URL:** `/api/tasks/:id`
+- **Method:** DELETE
+- **Response:**
+  ```json
+  {
+    "message": "Task deleted successfully"
+  }
+  ```
+
+---
+
+## File Structure
+
+### Backend
+```
+backend/
+├── models/
+│   └── Task.js       # Mongoose Task model
+├── routes/
+│   └── taskRoutes.js # Task-related API routes
+├── .env              # Environment variables (MONGO_URI, PORT)
+├── index.js          # Entry point for the server
+```
+
+### Frontend
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── TaskList.jsx  # Display list of tasks
+│   │   ├── TaskForm.jsx  # Add and update tasks
+│   │   └── TaskItem.jsx  # Individual task details (optional)
+│   ├── App.jsx           # Main React component
+│   ├── index.jsx         # React DOM rendering
+│   └── index.css         # Tailwind CSS configuration
+├── tailwind.config.js    # Tailwind CSS configuration
+├── postcss.config.js     # Tailwind/PostCSS settings
+```
+
+---
+
+## Usage
+1. Start the backend server:
+   ```bash
+   cd backend
+   npm start
+   ```
+2. Start the frontend server:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+3. Open your browser and interact with the app at:
+   ```
+   http://localhost:5173
+   ```
+
+---
+
+## Deployment
+
+### Backend Deployment
+1. Push the backend folder to a GitHub repository.
+2. Deploy to Render:
+   - Create a new Web Service in Render.
+   - Connect it to your GitHub repository.
+   - Add `MONGO_URI` in the environment variables section.
+   - Deploy the service.
+
+### Frontend Deployment
+1. Push the frontend folder to a GitHub repository.
+2. Deploy to Vercel:
+   - Connect Vercel to your GitHub repository.
+   - Deploy the project.
+
+---
+
+## Features
+- **TaskList Component:** Displays all tasks fetched from the backend.
+- **TaskForm Component:** Provides a form to create or update tasks.
+- **CRUD Operations:** Backend supports creating, reading, updating, and deleting tasks through RESTful APIs.
+- **Responsive Design:** Tailwind CSS ensures a user-friendly, responsive interface.
+
+---
+
+## Testing
+- Use **Postman** to test all API endpoints.
+- Verify the frontend's functionality:
+  - Add, edit, and delete tasks.
+  - Ensure tasks update dynamically.
 
